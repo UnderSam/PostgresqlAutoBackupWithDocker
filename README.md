@@ -122,3 +122,11 @@ admin@IPAdress$ ssh postgres@IPAdress "pg_dump -c services | gzip " \
 ## crontab 排程
 
 這邊的部分可以先參考 [鳥哥的 Crontab 教學](http://linux.vbird.org/linux_basic/0430cron.php)
+
+## ref
+
+http://rocksaying.tw/archives/11241135.html
+https://www.postgresql.org/docs/8.4/backup.html
+http://linux.vbird.org/linux_basic/0430cron.php
+https://www.a2hosting.com/kb/developer-corner/postgresql/managing-postgresql-databases-and-users-from-the-command-line
+http://www.postgresqltutorial.com/postgresql-show-databases/
