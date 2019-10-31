@@ -87,7 +87,7 @@ psql -U admin testDB
 
 ## 備份 script
 
-備份的部分可以直接參考官網 : (PostgreSQL Documentation::Backup and Restore)[https://www.postgresql.org/docs/8.4/backup.html]
+備份的部分可以直接參考官網 : [PostgreSQL Documentation::Backup and Restore](https://www.postgresql.org/docs/8.4/backup.html)
 文件中列出了三種備份方法, 我們要考量我們的備份需求為何, 決定備份方案。本文需求在不停止 PostgreSQL 的狀態下進行備份。另一方面, 本文的資料庫內容異動少, 且不做資料庫的查詢分流動作。所以選擇採用 SQL Dump 的方式, 這種方式適用不需要即時性的同步, 而是每日定期備份的操作。
 
 ### 從 A 備份到 B
@@ -121,4 +121,4 @@ admin@IPAdress$ ssh postgres@IPAdress "pg_dump -c services | gzip " \
 ```
 ## crontab 排程
 
-這邊的部分可以先參考 (鳥哥的 Crontab 教學)[http://linux.vbird.org/linux_basic/0430cron.php]
+這邊的部分可以先參考 [鳥哥的 Crontab 教學](http://linux.vbird.org/linux_basic/0430cron.php)
