@@ -72,8 +72,53 @@ exit
 
 ## 建立 postgres user, table, data
 
+首先需要進行 psql 來把 admin 加入到使用者之中, 回到 A 系統中並且
+```
+su - postgres <-- 需要使用者 postgres 才能直使用 psql
+createuser --interactive --pwprompt <-- 照著步驟完成創建 admin 角色
+createdb -O admin testDB <-- 為 admin 建立 testDB
+```
+建立完之後就可以離開 postgres 改用 admin 登入 postgres 看看
+```
+su admin
+psql -U admin testDB
+```
+若剛剛的步驟都正確現在就會進入到 postgres 的 shell 之中, 現在可以照著網路上的 tutorial 建立幾個 table 和 插入一些資料, 都做完之後就可以來處理備份的問題了
+
 ## 備份 script
 
+備份的部分可以直接參考官網 : (PostgreSQL Documentation::Backup and Restore)[https://www.postgresql.org/docs/8.4/backup.html]
+文件中列出了三種備份方法, 我們要考量我們的備份需求為何, 決定備份方案。本文需求在不停止 PostgreSQL 的狀態下進行備份。另一方面, 本文的資料庫內容異動少, 且不做資料庫的查詢分流動作。所以選擇採用 SQL Dump 的方式, 這種方式適用不需要即時性的同步, 而是每日定期備份的操作。
+
+### 從 A 備份到 B
+```
+admin@IPAdress$ pg_dump -c services | gzip | \
+     ssh postgres@IPAdress "gunzip | psql services"
+
+# or
+
+admin@IPAdress$ pg_dump -F tar services | gzip | \
+     ssh postgres@IPAdress "gunzip | pg_restore -c -d services"
+```
+若只是要傳送壓縮則可以
+```
+admin@IPAdress$ pg_dump -F tar services | gzip | \
+     ssh postgres@IPAdress "cat > ~/database_services.tar.gz"
+
+# or simple way:
+ admin@IPAdress$ pg_dump -F tar services | gzip ~/database_services.tar.gz
+ admin@IPAdress$ scp ~/database_services.tar.gz postgres@IPAdress:~
+```
+### 從 B 還原備份
+```
+admin@IPAdress$ ssh postgres@IPAdress "pg_dump -F tar services | gzip " \
+     | gunzip | pg_restore -c -d services
+
+# or
+
+admin@IPAdress$ ssh postgres@IPAdress "pg_dump -c services | gzip " \
+     | gunzip | psql services
+```
 ## crontab 排程
 
-
+這邊的部分可以先參考 (鳥哥的 Crontab 教學)[http://linux.vbird.org/linux_basic/0430cron.php]
