@@ -109,7 +109,7 @@ admin@IPAdress$ pg_dump -F tar services | gzip | \
  admin@IPAdress$ pg_dump -F tar services | gzip ~/database_services.tar.gz
  admin@IPAdress$ scp ~/database_services.tar.gz postgres@IPAdress:~
 ```
-### 從 B 還原備份
+### 從 B 操控 A 還原備份
 ```
 admin@IPAdress$ ssh postgres@IPAdress "pg_dump -F tar services | gzip " \
      | gunzip | pg_restore -c -d services
@@ -118,6 +118,10 @@ admin@IPAdress$ ssh postgres@IPAdress "pg_dump -F tar services | gzip " \
 
 admin@IPAdress$ ssh postgres@IPAdress "pg_dump -c services | gzip " \
      | gunzip | psql services
+```
+### 在 B 直接還原備份 (已經有資料壓縮檔)
+```
+cat database.tar.gz | gunzip | pg_restore -c -d dbname
 ```
 ## crontab 排程
 
