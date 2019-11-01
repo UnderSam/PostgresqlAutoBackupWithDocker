@@ -129,8 +129,9 @@ cat database.tar.gz | gunzip | pg_restore -c -d dbname
 
 ## ref
 
-http://rocksaying.tw/archives/11241135.html
-https://www.postgresql.org/docs/8.4/backup.html
-http://linux.vbird.org/linux_basic/0430cron.php
-https://www.a2hosting.com/kb/developer-corner/postgresql/managing-postgresql-databases-and-users-from-the-command-line
-http://www.postgresqltutorial.com/postgresql-show-databases/
+1. http://rocksaying.tw/archives/11241135.html
+2. https://www.postgresql.org/docs/8.4/backup.html
+3. http://linux.vbird.org/linux_basic/0430cron.php
+4. https://www.a2hosting.com/kb/developer-corner/postgresql/managing-postgresql-databases-and-users-from-the-command-line
+5. http://www.postgresqltutorial.com/postgresql-show-databases/
+6. http://boson4.phys.tku.edu.tw/UNIX/Unix%20Command/index_basic.htm
