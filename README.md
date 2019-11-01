@@ -13,7 +13,7 @@ docker pull postgres
 
 ```
 docker run --name mypostgres1 -e POSTGRES_PASSWORD=1qaz2wsx -p 5432:5432 -d postgres
-docker run --name mypostgres2 -e POSTGRES_PASSWORD=1qaz2wsx -p 5432:5432 -d postgres
+docker run --name mypostgres2 -e POSTGRES_PASSWORD=1qaz2wsx -p 5433:5432 -d postgres
 ```
 這時候兩個 Container 的 Network 都會是 Bridge 的狀態, 並且能夠互相 Ping 到對方, 但是一開始建起來的 Postgres Container 不會有 Ping 這個指令, 因此
 可以透過指令來安裝
