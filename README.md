@@ -123,6 +123,13 @@ admin@IPAdress$ ssh postgres@IPAdress "pg_dump -c dbname | gzip " \
 ```
 cat database_dbname.tar.gz | gunzip | pg_restore -c -d dbname
 ```
+### 從 A dump 出所有 DB 並且加入 clean 參數
+```
+pg_dumpall --clean --file=dump.sql
+// after transfer to B
+psql -U postgres --file=dump.sql
+```
+
 ## crontab 排程
 
 這邊的部分可以先參考 [鳥哥的 Crontab 教學](http://linux.vbird.org/linux_basic/0430cron.php)
