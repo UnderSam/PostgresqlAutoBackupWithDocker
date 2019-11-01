@@ -92,36 +92,36 @@ psql -U admin testDB
 
 ### 從 A 備份到 B
 ```
-admin@IPAdress$ pg_dump -c services | gzip | \
-     ssh postgres@IPAdress "gunzip | psql services"
+admin@IPAdress$ pg_dump -c dbname | gzip | \
+     ssh postgres@IPAdress "gunzip | psql dbname"
 
 # or
 
-admin@IPAdress$ pg_dump -F tar services | gzip | \
-     ssh postgres@IPAdress "gunzip | pg_restore -c -d services"
+admin@IPAdress$ pg_dump -F tar dbname | gzip | \
+     ssh postgres@IPAdress "gunzip | pg_restore -c -d dbname"
 ```
 若只是要傳送壓縮則可以
 ```
-admin@IPAdress$ pg_dump -F tar services | gzip | \
-     ssh postgres@IPAdress "cat > ~/database_services.tar.gz"
+admin@IPAdress$ pg_dump -F tar dbname | gzip | \
+     ssh postgres@IPAdress "cat > ~/database_dbname.tar.gz"
 
 # or simple way:
- admin@IPAdress$ pg_dump -F tar services | gzip ~/database_services.tar.gz
- admin@IPAdress$ scp ~/database_services.tar.gz postgres@IPAdress:~
+ admin@IPAdress$ pg_dump -F tar dbname | gzip ~/database_dbname.tar.gz
+ admin@IPAdress$ scp ~/database_dbname.tar.gz postgres@IPAdress:~
 ```
 ### 從 B 操控 A 還原備份
 ```
-admin@IPAdress$ ssh postgres@IPAdress "pg_dump -F tar services | gzip " \
-     | gunzip | pg_restore -c -d services
+admin@IPAdress$ ssh postgres@IPAdress "pg_dump -F tar dbname | gzip " \
+     | gunzip | pg_restore -c -d dbname
 
 # or
 
-admin@IPAdress$ ssh postgres@IPAdress "pg_dump -c services | gzip " \
-     | gunzip | psql services
+admin@IPAdress$ ssh postgres@IPAdress "pg_dump -c dbname | gzip " \
+     | gunzip | psql dbname
 ```
 ### 在 B 直接還原備份 (已經有資料壓縮檔)
 ```
-cat database.tar.gz | gunzip | pg_restore -c -d dbname
+cat database_dbname.tar.gz | gunzip | pg_restore -c -d dbname
 ```
 ## crontab 排程
 
