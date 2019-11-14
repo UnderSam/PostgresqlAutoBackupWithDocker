@@ -27,7 +27,7 @@ after create yml file, just compose up with
 ```
 docker-compose up -d
 ```
-## share volume in two containers :
+## use same volume without (--volumes-from) in two containers :
 
 在 docker-compose.yml 中的 volumes 設定一樣即可, 但是 volume 的機制為 :
 一次性讀取, 且不會在 running 中複寫外面的 volume, 需要 stop 才會覆寫, 在兩個共用一個 volume 的時候,
@@ -36,3 +36,5 @@ docker-compose up -d
 
 流程這樣就會變為 :
 開一個 pg1, 指定外在 volume, 每次 stop 都會更新, 當 pg1 shutdown, pg2 就可以馬上啟動接收 pg1 的 volume
+
+
