@@ -55,4 +55,20 @@ docker run --rm -d --volumes-from dbdata --name db1 -e POSTGRES_PASSWORD=mypassw
 1. 不要 run data container，這樣會浪費資源。
 2. 不要為了 data container 去跑最好的 image, 用 db 本身 image 即可
 
+## Transport container and data with Docker Hub
 
+首先要打包 Container, 這邊用 docker commit 的指令來操作, 會將目前的 Container 設定打包成一包新的 Image (但不包含Volume)
+```
+docker commit postgres <docker_account>/postgres_test:0.1
+```
+<docker_account> 替換成 Docker hub 註冊的帳號, commit 完後會在 docker Images 看到新的 Image, 這時候要上傳就只要先登入並且 push 即可
+```
+docker login
+...
+docker push <docker_account>/postgres_test:0.1
+```
+上傳之後到新的電腦只要先把原本的 volume 放到要外掛的 path 上, 並且寫好在 compose.yml 中, 再把 Image 改為剛剛上傳的 Image 來 compose-up 即可
+```
+docker pull <docker_account>/postgres_test:0.1
+docker-compose up -d
+```
