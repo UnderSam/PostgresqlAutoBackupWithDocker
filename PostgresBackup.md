@@ -137,6 +137,7 @@ docker save -o postgres.tar mypostgres
 ```
 參數說明如下：
 -o 為輸出檔案名稱
+
 2. 帶到新的電腦上面 load 進去 docker
 ```
 docker load -i postgres.tar
