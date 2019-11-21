@@ -1,4 +1,4 @@
-# PostgresqlAutoBackupWithDocker
+# Backup for Dockerized Postgres-Postgres
 
 今天要講的是利用 Docker 建立2個 Postgres Container(A and B), 並且能夠每天定時去備份 A 的資料到 B 的目錄中, 在 Docker 建立兩個一樣的 Container
 可以想像是在分開的兩個系統(Server,Client)中進行備份動作
