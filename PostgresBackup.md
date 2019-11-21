@@ -130,6 +130,22 @@ pg_dumpall --clean --file=dump.sql
 psql -U postgres --file=dump.sql
 ```
 
+## 使用 Docker Save 來轉移 Image
+1. 使用以下的指令將 Docker Image 存檔出一個檔案如下
+```
+docker save -o postgres.tar mypostgres
+```
+參數說明如下：
+-o 為輸出檔案名稱
+2. 帶到新的電腦上面 load 進去 docker
+```
+docker load -i postgres.tar
+```
+參數說明如下：
+-i: 放要 import 的檔案名稱
+
+Load 完即可再 Images 看到並且重新 Run 或用 Volume Compose-up 即可
+
 ## crontab 排程
 
 這邊的部分可以先參考 [鳥哥的 Crontab 教學](http://linux.vbird.org/linux_basic/0430cron.php)
